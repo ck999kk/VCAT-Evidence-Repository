@@ -19,10 +19,9 @@ Thank you for your interest in contributing to the VCAT Evidence Repository! We 
 
 ## Automated Checks (CI)
 
-This project uses GitHub Actions to automatically run linters, tests, and validation on each push and pull request. You do not need to watch the screen—CI will inform you of any failures.
+This project uses GitHub Actions to automatically run tests and validation on each push and pull request. You do not need to watch the screen—CI will inform you of any failures.
 
 ### Workflow
-- **Lint & Pre-commit hooks**: `pre-commit run --all-files`
 - **Unit tests**: `pytest`
 
 If CI passes, your PR is ready for review.
