@@ -1,57 +1,12 @@
-# VCAT Evidence Repository - Render.com Deployment Configuration
-
+# Exported from Render on 2025-08-01T23:48:34Z
 services:
-  - type: web
-    name: vcat-evidence-api
-    env: docker
-    repo: https://github.com/ck999kk/VCAT-Evidence-Repository
-    dockerfilePath: ./Dockerfile
-    plan: free
-    region: oregon
-    branch: main
-    buildCommand: ""
-    startCommand: ""
-    
-    # Environment variables
-    envVars:
-      - key: PORT
-        value: 8080
-      - key: PYTHONPATH
-        value: /app
-      - key: PYTHONDONTWRITEBYTECODE
-        value: 1
-      - key: PYTHONUNBUFFERED
-        value: 1
-        
-    # Database environment variables (production database)
-      - key: DB_HOST
-        value: <your-postgres-host>
-      - key: DB_PORT
-        value: 5432
-      - key: DB_NAME
-        value: vcat
-      - key: DB_USER
-        value: vcat
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: vcat-postgres
-          property: password
-    
-    # Health check configuration
-    healthCheckPath: /health
-    
-    # Auto-deploy settings
-    autoDeploy: true
-    
-    # Resource limits (Free tier)
-    # disk: 1GB
-    # memory: 512MB
-    # cpu: 0.5 cores
-
-    # PostgreSQL database service (connects to existing or managed DB)
-databases:
-  - name: vcat-postgres
-    databaseName: vcat
-    user: vcat
-    plan: free
-    region: oregon
+- type: web
+  name: VCAT-Evidence-Repository
+  runtime: docker
+  repo: https://github.com/ck999kk/VCAT-Evidence-Repository
+  plan: free
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+  autoDeployTrigger: checksPass
+version: "1"
