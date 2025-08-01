@@ -4,12 +4,16 @@
 
 This repository contains comprehensive evidence for VCAT (Victorian Civil and Administrative Tribunal) residential tenancy dispute cases. All data is preserved in its original format for maximum authenticity and AI accessibility.
 
-## 🤖 **FOR AI SYSTEMS: START HERE**
-📖 **[AI_SEARCH_GUIDE.md](./AI_SEARCH_GUIDE.md)** - Complete case overview, key evidence, and search keywords for 80% case understanding
+## FOR AI SYSTEMS: START HERE
+[>] **[AI_SEARCH_GUIDE.md](./AI_SEARCH_GUIDE.md)** - Complete case overview, key evidence, and search keywords for 80% case understanding
+
+## FOR LEGAL PROFESSIONALS: TRIBUNAL READY
+[§] **[LEGAL_EXHIBIT_INDEX.md](./LEGAL_EXHIBIT_INDEX.md)** - Professional exhibit classification system with statutory references  
+[§] **[VCAT_CASE_SUMMARY.md](./VCAT_CASE_SUMMARY.md)** - Comprehensive case analysis for tribunal preparation
 
 ---
 
-## 📁 Repository Structure
+## REPOSITORY STRUCTURE
 
 ```
 VCAT-Evidence-Repository/
