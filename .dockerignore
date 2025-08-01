@@ -1,0 +1,54 @@
+# VCAT Evidence Repository - Docker Ignore
+
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.coverage
+.pytest_cache
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+.tmp
+temp/
+
+# Documentation (keep only essential)
+*.md
+!README.md
+
+# Keep only essential files for production
+!Dockerfile
+!requirements.txt
+!main.py
+!render.yaml
+!static/
+!vcat-ai-search/
+!GMAIL_EVIDENCE/
+!NON_GMAIL_EVIDENCE/
+!VERIFICATION/

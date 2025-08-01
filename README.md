@@ -11,6 +11,12 @@ This repository contains comprehensive evidence for VCAT (Victorian Civil and Ad
 [§] **[LEGAL_EXHIBIT_INDEX.md](./LEGAL_EXHIBIT_INDEX.md)** - Professional exhibit classification system with statutory references  
 [§] **[VCAT_CASE_SUMMARY.md](./VCAT_CASE_SUMMARY.md)** - Comprehensive case analysis for tribunal preparation
 
+## FOR DEVELOPERS & AI SYSTEMS: API INTEGRATION
+[>] **[API_DOCUMENTATION.md](./API_DOCUMENTATION.md)** - Complete API reference for system integration
+- Search API (port 5004): Full-text evidence search
+- Export System (port 5005): Court-ready document generation  
+- Web Interface (port 8080): Browser-based access
+
 ---
 
 ## REPOSITORY STRUCTURE
