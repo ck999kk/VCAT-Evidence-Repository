@@ -1,10 +1,7 @@
 # VCAT EVIDENCE SYSTEM - API DOCUMENTATION
 
 **Version:** 1.0  
-**Base URLs:** 
-- Search API: `http://localhost:5004`
-- Export System: `http://localhost:5005`  
-- Web Interface: `http://localhost:8080`
+**Base URL:** `http://localhost:8080`
 
 **Authentication:** None required (localhost development)  
 **Content-Type:** application/json (for JSON responses)
@@ -13,17 +10,12 @@
 
 ## SYSTEM OVERVIEW
 
-### Architecture
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Web Interface │    │   Search API    │    │  Export System  │
-│   Port 8080     │    │   Port 5004     │    │   Port 5005     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                              │
-                    ┌─────────────────┐
-                    │  PostgreSQL DB  │
-                    │  634 Documents  │
-                    └─────────────────┘
+### System Architecture
+```plaintext
+┌──────────────────────────────────────────────────┐
+│          VCAT Evidence Repository API           │
+│          (FastAPI server on port 8080)          │
+└──────────────────────────────────────────────────┘
 ```
 
 ### System Components

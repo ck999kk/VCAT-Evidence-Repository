@@ -23,8 +23,8 @@
 ### **1. Water Damage Crisis (April 16-28, 2025)**
 - **Files 100-103:** Initial water damage reports
   - `20250416-Urgent_ Water Damage on Bedroom Wall (Unit 1803)-100`
-  - `20250416-Re_Urgent_ Water Damage on Bedroom Wall (Unit 1803-101`
-  - `20250416-Re_Urgent_ Water Damage on Bedroom Wall (Unit 1803-102`
+  - `20250416-Re_Urgent_ Water Damage on Bedroom Wall (Unit 1803)-101`
+  - `20250416-Re_Urgent_ Water Damage on Bedroom Wall (Unit 1803)-102`
 - **Issue:** Bedroom wall water damage, delayed repairs, habitability concerns
 
 ### **2. VCAT Orders & Applications** 

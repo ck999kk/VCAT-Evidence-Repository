@@ -21,22 +21,24 @@ This repository contains comprehensive evidence for VCAT (Victorian Civil and Ad
 
 ## REPOSITORY STRUCTURE
 
-```
+```plaintext
 VCAT-Evidence-Repository/
-├── NON_GMAIL_EVIDENCE/          # 44 files - Official documents & evidence
-│   ├── 01_LEGAL_DOCUMENTS/      # VCAT applications, court orders, notices
-│   ├── 02_EVIDENCE/             # Email threads, access records, co-tenant docs
-│   ├── 03_FINANCIAL_RECORDS/    # Rent payments, service costs, legal fees
-│   └── 04_SUPPORTING_DOCUMENTS/ # Medical records, school docs, property images
-│
-├── GMAIL_EVIDENCE/              # 594 files - Email communications
-│   ├── All_Case_Parties_EML/   # 114 original email files (.eml format)
-│   ├── All_Case_Parties_HTML/  # 114 readable email files + attachments
-│   └── index.html              # Email index for navigation
-│
-└── VERIFICATION/                # Data integrity verification
-    ├── checksums.sha256        # SHA256 hashes for all 638 files
-    └── upload-log.md           # Upload process documentation
+├── AI_SEARCH_GUIDE.md           # AI-focused case overview and search guide
+├── API_DOCUMENTATION.md         # REST API reference (search & export endpoints)
+├── CHAIN_OF_CUSTODY.md          # Evidence chain-of-custody details
+├── CLAUDE.md                    # Claude AI methodology and repo overview
+├── CONTRIBUTING.md              # Guidelines for contributing to this project
+├── DEPLOYMENT.md                # Deployment instructions (Render.com, Docker, local)
+├── Dockerfile                   # Production container setup for FastAPI server
+├── LEGAL_EXHIBIT_INDEX.md       # Tribunal-ready exhibit index with RTA references
+├── NON_GMAIL_EVIDENCE/          # Official documents and non-Gmail evidence
+├── GMAIL_EVIDENCE/              # Complete Gmail evidence (.eml, HTML, attachments)
+├── VCAT_CASE_SUMMARY.md         # Comprehensive case summary for tribunal
+├── main.py                      # FastAPI server implementation (search & export)
+├── render.yaml                  # Render.com deployment configuration
+├── requirements.txt             # Python dependencies
+├── static/                      # Web interface assets (HTML, CSS, JS)
+└── VERIFICATION/                # Data integrity verification (SHA256 checksums)
 ```
 
 ---
