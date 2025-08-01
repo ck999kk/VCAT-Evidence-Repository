@@ -39,12 +39,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Database configuration
+# Database configuration - Using mygpt-vcat-db container credentials
 DB_CONFIG = {
     'host': os.getenv('DB_HOST', 'localhost'), 
-    'database': os.getenv('DB_NAME', 'vcat_evidence_db'),
-    'user': os.getenv('DB_USER', 'vcat_readonly'),
-    'password': os.getenv('DB_PASSWORD', 'vcat_secure_2025!'),
+    'database': os.getenv('DB_NAME', 'vcat'),
+    'user': os.getenv('DB_USER', 'vcat'),
+    'password': os.getenv('DB_PASSWORD', 'secret123'),
     'port': int(os.getenv('DB_PORT', 5432))
 }
 
