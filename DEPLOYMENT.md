@@ -4,8 +4,8 @@
 
 ### Prerequisites
 1. GitHub repository: `https://github.com/ck999kk/VCAT-Evidence-Repository`
-2. Render.com account (free tier)
-3. PostgreSQL database (optional, can use in-memory for demo)
+2. Render.com account
+3. PostgreSQL database (production instance; in-memory or demo mode not supported)
 
 ### 1. Deploy to Render (Automatic)
 ```bash
@@ -20,22 +20,23 @@
 3. Connect GitHub repo: VCAT-Evidence-Repository
 4. Use these settings:
    - Environment: Docker
-   - Build Command: (leave empty)
-   - Start Command: (leave empty, uses Dockerfile CMD)
    - Port: 8080
 ```
 
 ### 2. Environment Variables (Render Dashboard)
 ```env
-# Required
+## 2. Environment Variables (Render Dashboard)
+```env
+# Service port
 PORT=8080
-PYTHONUNBUFFERED=1
 
-# Database (if using PostgreSQL)
-DB_HOST=your-postgres-host
-DB_NAME=vcat_evidence_db
-DB_USER=your-username
-DB_PASSWORD=your-password
+# Database configuration
+DB_HOST=<postgres-host>
+DB_PORT=5432
+DB_NAME=vcat
+DB_USER=vcat
+DB_PASSWORD=<your-db-password>
+``` 
 ```
 
 ### 3. Access Your API
