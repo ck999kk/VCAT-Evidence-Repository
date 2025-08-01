@@ -9,9 +9,11 @@ ENV PORT=8080
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (including PostgreSQL build deps)
 RUN apt-get update && apt-get install -y \
     gcc \
+    build-essential \
+    libpq-dev \
     postgresql-client \
     curl \
     && rm -rf /var/lib/apt/lists/*
@@ -19,8 +21,10 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies (prefer wheels, fallback to build if needed)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir --only-binary=:all: -r requirements.txt || \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy entire repository
 COPY . .

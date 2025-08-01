@@ -6,7 +6,6 @@ uvicorn[standard]==0.24.0
 pydantic==2.5.0
 
 # Database
-psycopg2-binary==2.9.7
 sqlalchemy==2.0.23
 
 # Web Server & Files
@@ -34,3 +33,6 @@ requests==2.31.0
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-dotenv==1.0.0
+
+# Database Connection (LAST - Render.com wheel fix)
+psycopg2-binary==2.9.5
