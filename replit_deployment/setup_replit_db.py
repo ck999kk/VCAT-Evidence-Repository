@@ -14,40 +14,41 @@ def setup_postgresql():
     """Initialize PostgreSQL on Replit"""
     print("🔧 Setting up PostgreSQL on Replit...")
     
-    # Start PostgreSQL service
+    # Check if PostgreSQL is already running
     try:
-        subprocess.run(['pg_ctl', '-D', '/tmp/postgresql', 'start'], check=True)
-        print("✅ PostgreSQL started")
-    except subprocess.CalledProcessError:
-        # Initialize database if doesn't exist
-        try:
-            subprocess.run(['initdb', '-D', '/tmp/postgresql'], check=True)
-            subprocess.run(['pg_ctl', '-D', '/tmp/postgresql', 'start'], check=True)
-            print("✅ PostgreSQL initialized and started")
-        except Exception as e:
-            print(f"❌ PostgreSQL setup failed: {e}")
-            return False
-    
-    return True
+        subprocess.run(['psql', '--version'], check=True, capture_output=True)
+        print("✅ PostgreSQL available")
+        return True
+    except:
+        print("⚠️ PostgreSQL not available - will use fallback mode")
+        return False
 
 def create_database_and_user():
     """Create VCAT database and user"""
     print("🏗️ Creating database and user...")
     
     try:
-        # Connect as default user to create database
+        # Try to connect to PostgreSQL
         conn = psycopg2.connect(
-            host='localhost',
+            host=os.getenv('DB_HOST', 'localhost'),
             database='postgres',
-            user=os.getenv('USER', 'runner'),
-            port=5432
+            user=os.getenv('DB_USER', os.getenv('USER', 'runner')),
+            password=os.getenv('DB_PASSWORD', ''),
+            port=int(os.getenv('DB_PORT', 5432))
         )
         conn.autocommit = True
         cursor = conn.cursor()
         
-        # Create user and database
-        cursor.execute("CREATE USER vcat WITH PASSWORD 'secret123';")
-        cursor.execute("CREATE DATABASE vcat OWNER vcat;")
+        # Create user and database if they don't exist
+        try:
+            cursor.execute("CREATE USER vcat WITH PASSWORD 'secret123';")
+        except psycopg2.errors.DuplicateObject:
+            print("User 'vcat' already exists")
+            
+        try:
+            cursor.execute("CREATE DATABASE vcat OWNER vcat;")
+        except psycopg2.errors.DuplicateDatabase:
+            print("Database 'vcat' already exists")
         cursor.execute("GRANT ALL PRIVILEGES ON DATABASE vcat TO vcat;")
         
         cursor.close()
