@@ -1,0 +1,23 @@
+{
+  "total_documents": 40,
+  "total_emails": 114,
+  "total_evidence": 154,
+  "generated_at": "2025-08-02T13:48:20.018764",
+  "file_types": {
+    "pdf": 17,
+    "txt": 1,
+    "docx": 2,
+    "jpg": 6,
+    "png": 14
+  },
+  "cases": [
+    "RT252398",
+    "R202518214",
+    "R202518589"
+  ],
+  "timeline": {
+    "start_date": "2025-02-07",
+    "end_date": "2025-08-01",
+    "duration_months": 6
+  }
+}

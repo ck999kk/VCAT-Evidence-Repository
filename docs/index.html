@@ -1,0 +1,66 @@
+---
+layout: default
+title: VCAT Evidence Repository
+---
+
+<div class="hero-section">
+  <h1>🏛️ VCAT Evidence Repository</h1>
+  <p class="lead">Professional legal evidence management system for Victorian Civil and Administrative Tribunal cases</p>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3 id="total-documents">{{ site.data.summary.total_documents }}</h3>
+      <p>Documents</p>
+    </div>
+    <div class="stat-card">
+      <h3 id="total-emails">{{ site.data.summary.total_emails }}</h3>
+      <p>Emails</p>
+    </div>
+    <div class="stat-card">
+      <h3 id="total-evidence">{{ site.data.summary.total_evidence }}</h3>
+      <p>Total Evidence</p>
+    </div>
+  </div>
+</div>
+
+<div class="search-section">
+  <h2>🔍 Search Evidence</h2>
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search evidence files, emails, and documents...">
+    <button onclick="performSearch()">Search</button>
+  </div>
+  <div id="search-results"></div>
+</div>
+
+<div class="cases-section">
+  <h2>⚖️ VCAT Cases</h2>
+  <div class="cases-grid">
+    <div class="case-card">
+      <h3>RT252398</h3>
+      <p>Residential Tenancy Dispute (Resolved)</p>
+      <a href="/cases/RT252398" class="btn">View Case</a>
+    </div>
+    <div class="case-card">
+      <h3>R202518214</h3>
+      <p>Notice to Vacate Challenge (Resolved)</p>
+      <a href="/cases/R202518214" class="btn">View Case</a>
+    </div>
+    <div class="case-card">
+      <h3>R202518589</h3>
+      <p>Possession of Property (Active)</p>
+      <a href="/cases/R202518589" class="btn">View Case</a>
+    </div>
+  </div>
+</div>
+
+<div class="quick-links">
+  <h2>📋 Quick Access</h2>
+  <ul>
+    <li><a href="/evidence/">Browse All Evidence</a></li>
+    <li><a href="/api/">API Documentation</a></li>
+    <li><a href="/timeline/">Case Timeline</a></li>
+    <li><a href="/export/">Export Evidence</a></li>
+  </ul>
+</div>
+
+<script src="/assets/js/search.js"></script>
