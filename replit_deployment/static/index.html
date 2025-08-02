@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCAT Evidence Search System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-width: 120px;
+        }
+
+        .search-btn:hover {
+            background: #5a67d8;
+        }
+
+        .search-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .quick-searches {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .quick-searches h3 {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .quick-btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1976d2;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .quick-btn:hover {
+            background: #1976d2;
+            color: white;
+        }
+
+        .results-section {
+            padding: 40px;
+            min-height: 300px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s;
+        }
+
+        .result-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-filename {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .result-preview {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .result-score {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-results h3 {
+            margin-bottom: 15px;
+            color: #999;
+        }
+
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .status-online {
+            background: #4caf50;
+        }
+
+        .status-offline {
+            background: #f44336;
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-indicator" id="statusIndicator">
+        [*] System Online
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>VCAT Evidence Search</h1>
+            <p>Professional Legal Evidence Database - 634 Documents Indexed</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search evidence: water damage, RT252398, notice to vacate..."
+                    onkeypress="handleKeyPress(event)"
+                >
+                <button class="search-btn" onclick="performSearch()" id="searchBtn">
+                    Search
+                </button>
+            </div>
+
+            <div class="quick-searches">
+                <h3>Quick Searches:</h3>
+                <a href="#" class="quick-btn" onclick="quickSearch('water damage')">Water Damage</a>
+                <a href="#" class="quick-btn" onclick="quickSearch('RT252398')">RT252398</a>
+                <a href="#" class="quick-btn" onclick="quickSearch('notice to vacate')">Notice to Vacate</a>
+                <a href="#" class="quick-btn" onclick="quickSearch('rent payment')">Rent Payment</a>
+                <a href="#" class="quick-btn" onclick="quickSearch('VCAT order')">VCAT Order</a>
+                <a href="#" class="quick-btn" onclick="quickSearch('repair')">Repairs</a>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div style="text-align: center; padding: 60px 20px; color: #666;">
+                <h2>VCAT Evidence Search System</h2>
+                <p>Enter your search query above to find relevant legal documents and evidence.</p>
+                <br>
+                <p><strong>Available Evidence:</strong></p>
+                <p>[-] 634 documents processed and searchable</p>
+                <p>[§] VCAT cases: RT252398, R202518214, R202518589</p>
+                <p>[>] Timeline: February - August 2025</p>
+                <p>[*] Full-text search with relevance scoring</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5004';
+        
+        // Check API status on load
+        checkApiStatus();
+        
+        function checkApiStatus() {
+            fetch(`${API_BASE}/test`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('statusIndicator').textContent = '[*] System Online';
+                    document.getElementById('statusIndicator').className = 'status-indicator status-online';
+                })
+                .catch(error => {
+                    document.getElementById('statusIndicator').textContent = '[!] System Offline';
+                    document.getElementById('statusIndicator').className = 'status-indicator status-offline';
+                });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        function quickSearch(query) {
+            document.getElementById('searchInput').value = query;
+            performSearch();
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                alert('Please enter a search query');
+                return;
+            }
+
+            const searchBtn = document.getElementById('searchBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            
+            // Show loading
+            searchBtn.disabled = true;
+            searchBtn.textContent = 'Searching...';
+            resultsSection.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Searching evidence database...</p>
+                </div>
+            `;
+
+            // Perform search
+            fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Search error:', error);
+                    resultsSection.innerHTML = `
+                        <div class="no-results">
+                            <h3>[!] Search Error</h3>
+                            <p>Unable to connect to the search API.</p>
+                            <p>Please ensure the API server is running on port 5004.</p>
+                            <p><strong>Error:</strong> ${error.message}</p>
+                        </div>
+                    `;
+                })
+                .finally(() => {
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = 'Search';
+                });
+        }
+
+        function displayResults(data) {
+            const resultsSection = document.getElementById('resultsSection');
+            
+            if (!data.results || data.results.length === 0) {
+                resultsSection.innerHTML = `
+                    <div class="no-results">
+                        <h3>No Results Found</h3>
+                        <p>No documents match your search query: <strong>"${data.query}"</strong></p>
+                        <p>Try different keywords or check the spelling.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="stats">
+                    <div>
+                        <strong>Search Results:</strong> ${data.count} documents found for "<em>${data.query}</em>"
+                    </div>
+                    <div>
+                        <strong>Database:</strong> 634 total documents
+                    </div>
+                </div>
+            `;
+
+            data.results.forEach((result, index) => {
+                html += `
+                    <div class="result-item">
+                        <div class="result-filename">
+                            ${index + 1}. ${result.filename}
+                        </div>
+                        <div class="result-preview">
+                            ${result.preview}
+                        </div>
+                        <div>
+                            <span class="result-score">Relevance: ${(result.score * 100).toFixed(1)}%</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultsSection.innerHTML = html;
+        }
+
+        // Auto-check API status every 30 seconds
+        setInterval(checkApiStatus, 30000);
+    </script>
+</body>
+</html>
